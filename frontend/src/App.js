@@ -1,12 +1,12 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import RegisterCitizenPage from './pages/RegisterCitizenPage';
-import RegisterProviderPage from './pages/RegisterProviderPage';
-import CitizenDashboard from './pages/CitizenDashboard';
-import ProviderDashboard from './pages/ProviderDashboard';
-import AdminDashboard from './pages/AdminDashboard';
-import Navbar from './components/Navbar';
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import RegisterCitizenPage from "./pages/RegisterCitizenPage";
+import RegisterProviderPage from "./pages/RegisterProviderPage";
+import CitizenDashboard from "./pages/CitizenDashboard";
+import ProviderDashboard from "./pages/ProviderDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
