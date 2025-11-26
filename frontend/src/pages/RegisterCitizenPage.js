@@ -13,9 +13,49 @@ export default function RegisterCitizenPage() {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
+  const validateForm = () => {
+    // Name validation
+    if (form.name.trim().length < 3) {
+      return "Name must be at least 3 characters";
+    }
+    const nameRegex = /^[A-Za-z\s]+$/;
+    if (!nameRegex.test(form.name)) {
+      return "Name can only contain letters and spaces";
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      return "Invalid email format";
+    }
+
+    // Phone validation
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(form.phone)) {
+      return "Phone number must be 10 digits";
+    }
+
+    // Password validation
+    if (form.password.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
+    if (!passwordRegex.test(form.password)) {
+      return "Password must contain at least one letter and one number";
+    }
+
+    return null;
+  };
+
   const submit = async (e) => {
     e.preventDefault();
     setErr("");
+
+    const validationError = validateForm();
+    if (validationError) {
+      setErr(validationError);
+      return;
+    }
 
     try {
       const { data } = await api.post("/auth/register/citizen", form);
@@ -30,20 +70,22 @@ export default function RegisterCitizenPage() {
   return (
     <div
       style={{
+        position: "relative",
         minHeight: "100vh",
+        margin: "0",
         backgroundImage:
           "url('https://images.pexels.com/photos/5669601/pexels-photo-5669601.jpeg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px",
         fontFamily: "Poppins, sans-serif",
       }}
     >
       <div
         style={{
+          position: "absolute",
+          top: "80px", // adjust based on navbar height
+          left: "50%",
+          transform: "translateX(-50%)",
           width: "420px",
           background: "rgba(0,0,0,0.55)",
           padding: "30px",

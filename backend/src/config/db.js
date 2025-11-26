@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
-  const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?retryWrites=true&w=majority&appName=Cluster0`;
+  const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@legalemarketplace1.itwfnlp.mongodb.net/?appName=LegalEMarketplace1`;
 
   try {
     await mongoose.connect(uri); // no extra options needed in Mongoose v7+

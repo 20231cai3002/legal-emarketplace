@@ -17,9 +17,65 @@ export default function RegisterProviderPage() {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
+  const validateForm = () => {
+    // Name validation
+    if (form.name.trim().length < 3) {
+      return "Name must be at least 3 characters";
+    }
+    const nameRegex = /^[A-Za-z\s]+$/;
+    if (!nameRegex.test(form.name)) {
+      return "Name can only contain letters and spaces";
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      return "Invalid email format";
+    }
+
+    // Phone validation
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(form.phone)) {
+      return "Phone number must be 10 digits";
+    }
+
+    // Password validation
+    if (form.password.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
+    if (!passwordRegex.test(form.password)) {
+      return "Password must contain at least one letter and one number";
+    }
+
+    // Experience validation
+    if (form.experience < 1) {
+      return "Experience must be at least 1 year";
+    }
+
+    // License Number validation
+    if (form.licenseNumber.trim().length < 5) {
+      return "License number must be at least 5 characters";
+    }
+
+    // Document URL validation
+    const urlRegex = /^(https?:\/\/[^\s]+)$/;
+    if (!urlRegex.test(form.documentUrl)) {
+      return "Document URL must be a valid link (http/https)";
+    }
+
+    return null;
+  };
+
   const submit = async (e) => {
     e.preventDefault();
     setErr("");
+
+    const validationError = validateForm();
+    if (validationError) {
+      setErr(validationError);
+      return;
+    }
 
     try {
       const { data } = await api.post("/auth/register/provider", form);

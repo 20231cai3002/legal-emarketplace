@@ -44,10 +44,32 @@ export default function CitizenDashboard() {
   };
 
   return (
-    <>
-      <h3>Citizen Dashboard</h3>
+    <div
+      style={{
+        minHeight: "100vh",
+        margin: "0",
+        padding: "20px",
+        backgroundImage:
+          "url('https://images.pexels.com/photos/5669601/pexels-photo-5669601.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        fontFamily: "Poppins, sans-serif",
+      }}
+    >
+      <h3
+        style={{
+          color: "white",
+          textShadow: "1px 1px 4px rgba(0,0,0,0.6)",
+          marginBottom: "20px",
+        }}
+      >
+        Citizen Dashboard
+      </h3>
+
       {err && <div className="alert alert-danger">{err}</div>}
       {message && <div className="alert alert-success">{message}</div>}
+
+      {/* Search Filters */}
       <div className="row g-3 mb-3">
         <div className="col-md-3">
           <input
@@ -64,11 +86,13 @@ export default function CitizenDashboard() {
             onChange={(e) => setProfession(e.target.value)}
           >
             <option value="">All</option>
-            {["Advocate", "Mediator", "Arbitrator", "Notary", "DocumentWriter"].map((p) => (
-              <option key={p} value={p}>
-                {p}
-              </option>
-            ))}
+            {["Advocate", "Mediator", "Arbitrator", "Notary", "DocumentWriter"].map(
+              (p) => (
+                <option key={p} value={p}>
+                  {p}
+                </option>
+              )
+            )}
           </select>
         </div>
         <div className="col-md-2">
@@ -87,16 +111,25 @@ export default function CitizenDashboard() {
         </div>
       </div>
 
+      {/* Provider Cards */}
       <div className="row">
         {providers.map((p) => (
           <div key={p._id} className="col-md-4">
-            <div className="card mb-3">
+            <div
+              className="card mb-3"
+              style={{
+                background: "rgba(255,255,255,0.85)", // semi-transparent card
+                borderRadius: "12px",
+                boxShadow: "0 6px 12px rgba(0,0,0,0.3)",
+              }}
+            >
               <div className="card-body">
                 <h5 className="card-title">
                   {p.user?.name} ({p.profession})
                 </h5>
                 <p className="card-text">
-                  Exp: {p.experience} yrs | Rating: {p.ratingAvg?.toFixed(1)} ({p.ratingCount})
+                  Exp: {p.experience} yrs | Rating:{" "}
+                  {p.ratingAvg?.toFixed(1)} ({p.ratingCount})
                 </p>
                 <div className="mb-2">
                   <label>Date</label>
@@ -115,7 +148,7 @@ export default function CitizenDashboard() {
                   />
                 </div>
                 <button
-                  className="btn btn-success"
+                  className="btn btn-success w-100"
                   onClick={() => {
                     setSelected(p._id);
                     book();
@@ -128,6 +161,6 @@ export default function CitizenDashboard() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }

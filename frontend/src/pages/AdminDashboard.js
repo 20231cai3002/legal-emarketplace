@@ -156,7 +156,11 @@ export default function AdminDashboard() {
               fontSize: "18px",
             }}
           >
-            Provider: {i.provider} | Points: {i.points} | Reason: {i.reason}
+            Provider:{" "}
+            {typeof i.provider === "object"
+              ? i.provider?.user?.name || i.provider?.profession || i.provider?._id
+              : i.provider}
+            {" "} | Points: {i.points} | Reason: {i.reason}
           </div>
         ))}
       </div>
